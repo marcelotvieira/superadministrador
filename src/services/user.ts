@@ -1,5 +1,6 @@
 import { Prisma, User } from "@prisma/client";
 import prisma from ".";
+import internal from "stream";
 
 export class UserService {
   private _userModel = prisma.user;
@@ -12,6 +13,10 @@ export class UserService {
     return await this._userModel.create({ data })
   }
   
-
-
+  public async updateUser(userId: number, data: Prisma.UserUpdateInput){
+    return await this._userModel.update({
+      where: { id: userId },
+      data
+    })
+  }
 }
