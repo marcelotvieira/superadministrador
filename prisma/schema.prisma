@@ -11,11 +11,36 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
+  username  String
+  password  String
   firstName String
   lastName  String
-  username  String
+  telephone Int
   email     String
-  password  String
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
+  Adresses  Address[]
+  Payments  Payment[]
+}
+
+model Address {
+  id           Int    @id @default(autoincrement())
+  addressLine1 String
+  addressLine2 String
+  city         String
+  postal_code  String
+  country      String
+  telephone    String
+  userId       Int
+  users        User   @relation(fields: [userId], references: [id])
+}
+
+model Payment {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  user          User     @relation(fields: [userId], references: [id])
+  paymentType   String
+  provider      String
+  accountNumber Int
+  expiry        DateTime @default(now())
 }
