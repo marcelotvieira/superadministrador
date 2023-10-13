@@ -1,0 +1,10 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: bimanager
+      POSTGRES_USER: superadministrador
+      POSTGRES_PASSWORD: superadmin@123
+    ports:
+      - "5432:5432"
