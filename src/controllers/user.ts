@@ -15,7 +15,7 @@ export class UserController {
   }
 
   public async createUser(req: Request, res: Response) {
-    const newUser = await this._service.createUser(userCreateSchema.parse(req.body))
-    res.status(201).json({ newUser })
+    const token = await this._service.createUser(userCreateSchema.parse(req.body))
+    res.status(201).json( token )
   }
 }
