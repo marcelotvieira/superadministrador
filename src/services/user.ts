@@ -1,5 +1,6 @@
 import { Prisma, User } from "@prisma/client";
 import prisma from ".";
+import bcrypt, { genSalt } from 'bcrypt';
 import internal from "stream";
 
 export class UserService {
@@ -10,7 +11,12 @@ export class UserService {
   }
 
   public async createUser(data: Prisma.UserCreateInput ) {
-    return await this._userModel.create({ data })
+    const password = await this.toHash(data.password);
+    return await this._userModel.create({ data: { ...data, password }})
+  }
+
+  private async toHash(password: string) {
+    return await bcrypt.hash(password, await genSalt(10))
   }
   
   public async updateUser(userId: number, data: Prisma.UserUpdateInput){
