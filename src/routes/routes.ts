@@ -1,13 +1,13 @@
-import { Request, Response, Router } from "express";
-import { UserController } from "../controllers/user";
-import { UserService } from "../services/user";
+import { Request, Response, Router } from 'express'
+import { UserController } from '../controllers/user'
+import { UserService } from '../services/user'
 
 export class userRoutes{
-  public router = Router();
-  private controller = new UserController(new UserService());
+  public router = Router()
+  private controller = new UserController(new UserService())
 
   constructor() {
-    this.setup();
+    this.setup()
   }
 
   private async setup() {

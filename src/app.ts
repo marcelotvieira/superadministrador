@@ -1,15 +1,15 @@
-import express from 'express';
-import { userRoutes } from './routes/routes';
+import express from 'express'
+import { userRoutes } from './routes/routes'
 
 
 export class App {
-  app: express.Express;
+  app: express.Express
 
   constructor() {
-    this.app = express();
-    this.config();
-    this.setupRoutes();
-    this.errorConfig();
+    this.app = express()
+    this.config()
+    this.setupRoutes()
+    this.errorConfig()
   }
 
   private async config() {
@@ -27,7 +27,7 @@ export class App {
   public async start() {
     this.app.listen(
       process.env.PORT ? Number(process.env.PORT) : 3333,
-      () => console.log("HTTP Server Running")
-    );
+      () => console.log('HTTP Server Running')
+    )
   }
 }

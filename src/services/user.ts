@@ -1,17 +1,16 @@
-import { Prisma, User } from "@prisma/client";
-import prisma from ".";
-import bcrypt, { genSalt } from 'bcrypt';
-import internal from "stream";
+import { Prisma } from '@prisma/client'
+import prisma from '.'
+import bcrypt, { genSalt } from 'bcrypt'
 
 export class UserService {
-  private _userModel = prisma.user;
+  private _userModel = prisma.user
 
   public async getUsers() {
-    return await this._userModel.findMany();
+    return await this._userModel.findMany()
   }
 
   public async createUser(data: Prisma.UserCreateInput ) {
-    const password = await this.toHash(data.password);
+    const password = await this.toHash(data.password)
     return await this._userModel.create({ data: { ...data, password }})
   }
 
