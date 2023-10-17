@@ -18,4 +18,8 @@ export class UserController {
     const token = await this._service.createUser(userCreateSchema.parse(req.body))
     res.status(201).json( token )
   }
+
+  public async deleteUser(req: Request, res: Response){
+    return await this._service.deleteUser(Number(req.params.id))
+  }
 }
