@@ -36,4 +36,8 @@ export class UserService {
       data
     })
   }
+
+  public async deleteUser(id: number): Promise<User> {
+    return await this._userModel.delete({ where: { id }})
+  }
 }
