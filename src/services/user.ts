@@ -28,13 +28,10 @@ export class UserService {
   }
   
   public async updateUser(
-    userId: number,
+    id: number,
     data: Prisma.UserUpdateInput,
   ): Promise<User> {
-    return await this._userModel.update({
-      where: { id: userId },
-      data
-    })
+    return await this._userModel.update({ where: { id }, data })
   }
 
   public async deleteUser(id: number): Promise<User> {
