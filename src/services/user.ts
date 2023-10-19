@@ -4,7 +4,7 @@ import bcrypt, { genSalt } from 'bcrypt'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 
 export class UserService {
-  private _userModel = prisma.user
+  public _userModel = prisma.user
 
   public async getUsers() {
     return await this._userModel.findMany()
