@@ -9,7 +9,7 @@ export const userCreateSchema = z.object({
   lastName: z.string(),
   telephone: z.string().optional(),
   password: z.string(),
-  roleId: z.number()
+  roleId: z.number().optional(),
 })
 
 export const userUpdateSchema = z.object({
