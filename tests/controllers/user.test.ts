@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { UserService } from '../../src/services/user'
 import { UserController } from '../../src/controllers/user'
+import { ApiError } from '../../src/error/ApiError'
 
 describe('UserController', () => {
   let userService: UserService
@@ -47,14 +48,32 @@ describe('UserController', () => {
     expect(res.json).toHaveBeenCalledWith({ token })
   })
 
-  it('deve excluir um usuário', async () => {
-    const userId = 1
+  it('deve excluir um usuário com sucesso', async () => {
+    const userId = '1'
     userService.deleteUser = jest.fn().mockResolvedValue({ id: userId })
 
-    req.params = { id: userId.toString() }
+    req.params = { id: userId }
     await userController.deleteUser(req, res)
 
     expect(res.status).toHaveBeenCalledWith(StatusCodes.OK)
     expect(res.json).toHaveBeenCalledWith({ deleted: { id: userId } })
+  })
+
+  it('deve retornar um erro de solicitação inválida ao fornecer um ID inválido', async () => {
+    const invalidId = 'invalidId'
+    req.params = { id: invalidId }
+    const errorMessage = 'Id property type needs to be Integer'
+
+    ApiError.badRequest = jest.fn().mockImplementation(() => {
+      throw new ApiError(errorMessage, StatusCodes.BAD_REQUEST)
+    })
+    try {
+      await userController.deleteUser(req, res)
+      throw new Error('An error should be thrown')
+    } catch (error) {
+      expect(error).toBeInstanceOf(ApiError)
+      const apiError = error as ApiError
+      expect(apiError.message).toBe(errorMessage)
+    }
   })
 })

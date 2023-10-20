@@ -1,5 +1,6 @@
 import prisma from '../../src/services'
 import { UserService } from '../../src/services/user'
+import { ZodError } from 'zod'
 
 describe('UserService', () => {
   let userService: UserService
@@ -7,11 +8,11 @@ describe('UserService', () => {
   beforeEach(() => {
     userService = new UserService()
   })
+
   afterAll(async () => {
     await prisma.user.deleteMany({})
     await prisma.$disconnect()
   })
-
 
   it('deve criar um usuário', async () => {
     const userData = {
@@ -24,6 +25,22 @@ describe('UserService', () => {
     const createUserResponse = await userService.createUser(userData)
     expect(createUserResponse).toHaveProperty('token')
   })
+
+  it('deve lançar erro ao criar usuário com campo vazio', async () => {
+    const userData = {
+      username: 'testuser',
+      firstName: '', // Campo vazio
+      lastName: 'user',
+      email: 'test@contato.com',
+      password: 'password123',
+    }
+    try {
+      await userService.createUser(userData)
+    } catch (error) {
+      expect(error).toBeInstanceOf(ZodError)
+    }
+  })
+
 
   it('deve obter todos os usuários', async () => {
     userService._userModel.findMany = jest.fn().mockResolvedValue([{ id: 1, username: 'user1' }])

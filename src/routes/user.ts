@@ -19,7 +19,7 @@ export class userRoutes extends AppBaseRoutes {
 
 
     this.router.delete(
-      '/users',
+      '/users/:id',
       expressAsyncHandler((req: Request, res: Response) => this.controller.deleteUser(req, res)))
 
   }
