@@ -4,7 +4,7 @@ import bcrypt, { genSalt } from 'bcrypt'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 
 export class UserService {
-  private _userModel = prisma.user
+  public _userModel = prisma.user
 
   public async getUsers() {
     return await this._userModel.findMany()
@@ -28,12 +28,13 @@ export class UserService {
   }
   
   public async updateUser(
-    userId: number,
+    id: number,
     data: Prisma.UserUpdateInput,
   ): Promise<User> {
-    return await this._userModel.update({
-      where: { id: userId },
-      data
-    })
+    return await this._userModel.update({ where: { id }, data })
+  }
+
+  public async deleteUser(id: number): Promise<User> {
+    return await this._userModel.delete({ where: { id }})
   }
 }

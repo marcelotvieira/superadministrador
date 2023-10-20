@@ -1,5 +1,7 @@
 import express from 'express'
-import { userRoutes } from './routes/routes'
+import { userRoutes } from './routes/user'
+import { roleRoutes } from './routes/role'
+import { ApiError } from './error/ApiError'
 
 
 export class App {
@@ -18,10 +20,11 @@ export class App {
 
   private async setupRoutes() {
     this.app.use(new userRoutes().router)
+    this.app.use(new roleRoutes().router)
   }
 
   private async errorConfig() {
-
+    this.app.use(ApiError.handler)
   }
   
   public async start() {
