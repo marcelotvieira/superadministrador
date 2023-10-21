@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router } from 'express'
 
 export abstract class AppBaseRoutes {
   public router = Router()
@@ -8,5 +8,5 @@ export abstract class AppBaseRoutes {
     this.setup()
   }
 
-  protected abstract setup(): void;
+  protected abstract setup(): void
 }
