@@ -1,8 +1,9 @@
 import { Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { UserService } from '../../src/services/user'
-import { UserController } from '../../src/controllers/user'
-import { ApiError } from '../../src/error/ApiError'
+import { UserController } from '../../../src/controllers/user'
+import { UserService } from '../../../src/services/user'
+import { ApiError } from '../../../src/error/ApiError'
+
 
 describe('UserController', () => {
   let userService: UserService

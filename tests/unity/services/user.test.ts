@@ -1,6 +1,6 @@
-import prisma from '../../src/services'
-import { UserService } from '../../src/services/user'
 import { ZodError } from 'zod'
+import { UserService } from '../../../src/services/user'
+import prisma from '../../../src/services'
 
 describe('UserService', () => {
   let userService: UserService

@@ -8,8 +8,8 @@
   },
   "scripts": {
     "dev": "NODE_ENV=development ts-node-dev --respawn --transpile-only src/server.ts",
-    "test": "NODE_ENV=test jest",
-    "test:integration": "NODE_ENV=test jest tests/integration/*.test.ts",
+    "test": "NODE_ENV=test jest tests/unity/**/*.test.ts --verbose",
+    "test:integration": "NODE_ENV=test jest tests/integration/*.test.ts --verbose",
     "start": "node dist/server.js",
     "build": "tsup src"
   },
